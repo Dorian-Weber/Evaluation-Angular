@@ -54,7 +54,7 @@ Le Pendu est un jeu de devinette où l'objectif est de trouver un mot caché en 
 
 - Afficher le nombre d'erreurs en temps réel (format: X/5)
 - Enregistrer et afficher le record de parties gagnées consécutives
-- Utiliser le localStorage pour persister le record entre les sessions
+- Stocker le record dans le localStorage pour une persistance des données, ou simplement dans une variable du service Angular (les données seront perdues au rechargement de la page)
 
 ### Rejouer
 
