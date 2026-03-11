@@ -10,7 +10,7 @@ export class Keyboard {
   private keydown$: Observable<KeyboardEvent> = fromEvent<KeyboardEvent>(window, 'keydown');
 
   // filtre pour récupérer que les lettres.
-  letters$: Observable<String> = this.keydown$.pipe(
+  letters$: Observable<string> = this.keydown$.pipe(
     map(e => e.key ),
     filter(key => /^[a-zA-Z]$/.test(key))
   );
