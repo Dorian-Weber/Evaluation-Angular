@@ -1,7 +1,6 @@
 import {Component, signal, effect, inject} from '@angular/core';
-import { Keyboard } from '../../services/keyboard'
-import {toSignal} from '@angular/core/rxjs-interop';
-import {list} from 'postcss';
+import {Letters} from '../../services/lettres';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -9,29 +8,11 @@ import {list} from 'postcss';
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',
 })
+
 export class Sidebar {
+  private letters = inject(Letters);
 
-  private keyboard = inject(Keyboard);
-
-  lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
-  lettersList = signal<string[]>([]);
-
-  constructor() {
-    effect(() => {
-      const letter = this.lastLetter();
-      if (letter) {
-        this.lettersList.update(list => [...list, letter]);
-        console.log(this.lettersList())
-      }
-    });
-  };
-
-  get getLastLetter(): string {
-    return <string>this.lastLetter()
-  };
-
-  get getLettersList(): string[] {
-    return <string[]> this.lettersList();
-  }
+  lastLetter =this.letters.getLastLetter
+  lettersList = this.letters.getLettersList
 
 }
