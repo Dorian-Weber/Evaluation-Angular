@@ -4,7 +4,11 @@
       <h2 class="card-title">Lettres jouées</h2>
       <div class="text-center">
         <p class="hint-text">Tapez une lettre au clavier</p>
-        <div id="letters-used" class="letters-container"></div>
+        <div id="letters-used" class="letters-container">
+          @for (letter of lettersList(); track $index){
+            <span>{{ letter }}</span>
+          }
+        </div>
       </div>
     </div>
   </div>
