@@ -25,4 +25,9 @@ export class Sidebar {
     });
   };
 
-  }
+  get getLastLetter(): string {
+    return <string>this.lastLetter()
+  };
+
+
+}
