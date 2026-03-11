@@ -1,6 +1,7 @@
 import {Component, signal, effect, inject} from '@angular/core';
 import { Keyboard } from '../../services/keyboard'
 import {toSignal} from '@angular/core/rxjs-interop';
+import {list} from 'postcss';
 
 @Component({
   selector: 'app-sidebar',
@@ -29,5 +30,8 @@ export class Sidebar {
     return <string>this.lastLetter()
   };
 
+  get getLettersList(): string[] {
+    return <string[]> this.lettersList();
+  }
 
 }
