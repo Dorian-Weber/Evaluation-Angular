@@ -15,9 +15,10 @@ export class Letters {
   constructor() {
     effect(() => {
       const letter = this.lastLetter();
-      if (letter) {
-        this.lettersList.update(list => [...list, letter]);
-        console.log(this.lettersList())
+      if(letter)
+        if (!this.lettersList().includes(letter)) {
+          this.lettersList.update(list => [...list, letter]);
+          console.log(this.lettersList())
       }
     });
   }

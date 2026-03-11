@@ -1,5 +1,5 @@
 import {Component, signal, effect, inject} from '@angular/core';
-import {Letters} from '../../services/lettres';
+import {Letters} from '../../services/letters';
 
 
 @Component({

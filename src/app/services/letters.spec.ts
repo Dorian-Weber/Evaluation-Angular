@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Lettres } from './lettres';
+import { Lettres } from './letters';
 
 describe('Lettres', () => {
   let service: Lettres;
