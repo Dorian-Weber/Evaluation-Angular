@@ -51,4 +51,11 @@ export class Words {
     }
     return <string>this.randomWord;
   }
+
+  isIncluded(letter: string) : boolean {
+    if (this.randomWord === undefined) {
+      return false;
+    }
+    return this.randomWord.includes(letter);
+  }
 }
