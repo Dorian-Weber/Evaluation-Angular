@@ -1,6 +1,6 @@
-import {Component, Inject, OnInit, signal} from '@angular/core';
+import {Component, OnInit, signal, inject} from '@angular/core';
 import {Words} from '../../services/words';
-import {NgForOf} from '@angular/common';
+
 
 @Component({
   selector: 'app-word-container',
@@ -14,7 +14,8 @@ import {NgForOf} from '@angular/common';
 export class WordContainer implements OnInit {
   currentWord = signal<string[]>([]);
   guessedLetters: string[] = [];
-  constructor(private wordService: Words) {}
+  //constructor(private wordService: Words) {}
+  private wordService = inject(Words);
 
   // Assigne un mot aléatoire grace au service
   ngOnInit(): void {
