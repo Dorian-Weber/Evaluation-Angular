@@ -19,7 +19,14 @@ export class WordContainer implements OnInit {
   // Assigne un mot aléatoire grace au service
   ngOnInit(): void {
     this.currentWord.set(this.wordService.getRandomWord().split(""));
+    console.log(this.currentWord());
   }
 
+  addToGuessedLetters(letter: string): void {
+    this.guessedLetters.push(letter);
+  }
 
+  resetGuessedLetters(): void {
+    this.guessedLetters = [];
+  }
 }
