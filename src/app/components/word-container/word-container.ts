@@ -1,5 +1,6 @@
-import {Component, OnInit, signal, inject} from '@angular/core';
+import {Component, OnInit, signal, inject, computed} from '@angular/core';
 import {Words} from '../../services/words';
+import {Letters} from '../../services/letters';
 
 
 @Component({
@@ -13,20 +14,15 @@ import {Words} from '../../services/words';
 // Implementation de l'interface OnInit pour assigner le mot a l'initialisation
 export class WordContainer implements OnInit {
   currentWord = signal<string[]>([]);
-  guessedLetters: string[] = [];
-  //constructor(private wordService: Words) {}
   private wordService = inject(Words);
+  private letterService = inject(Letters);
+
+  lettersList = this.letterService.lettersList;
 
   // Assigne un mot aléatoire grace au service
   ngOnInit(): void {
     this.currentWord.set(this.wordService.getRandomWord().split(""));
+    console.log(this.currentWord());
   }
 
-  addToGuessedLetters(letter: string): void {
-    this.guessedLetters.push(letter);
-  }
-
-  resetGuessedLetters(): void {
-    this.guessedLetters = [];
-  }
 }
