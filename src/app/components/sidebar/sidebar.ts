@@ -19,5 +19,8 @@ export class Sidebar {
 
   protected lettersList = this.letters.getLettersList
   protected getRandomWord = this.word.getRandomWord()
-
+  protected reset(): void {
+    console.log("click")
+    this.word.resetRandomWord()
+  }
 }

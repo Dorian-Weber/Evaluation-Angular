@@ -40,7 +40,7 @@ export class Words {
     this.randomWord = this.wordList[index].toUpperCase();
   }
 
-  private resetRandomWord(): void {
+  resetRandomWord(): void {
     this.randomWord = undefined;
   }
 
