@@ -1,6 +1,7 @@
 import {Component, inject, signal} from '@angular/core';
 import {Letters} from '../../services/letters';
 import {Words} from '../../services/words';
+import {Error} from '../../services/error';
 
 @Component({
   selector: 'app-score',
@@ -9,18 +10,7 @@ import {Words} from '../../services/words';
   styleUrl: './score.css',
 })
 export class Score {
-  private letters = inject(Letters);
-  private word = inject(Words);
+  private errorService = inject(Error);
 
-  protected lastLetter = this.letters.getLastLetter
-  protected getRandomWord = this.word.getRandomWord()
-
-  protected counter = signal(0);
-
-  scoreCounter() : void {
-    if(!this.getRandomWord.includes(this.lastLetter()!)) {
-      this.counter.update(count => count + 1);
-
-    }
-  }
+  protected counter = this.errorService.counter$;
 }
