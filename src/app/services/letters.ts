@@ -18,7 +18,6 @@ export class Letters {
       if(letter)
         if (!this.lettersList().includes(letter)) {
           this.lettersList.update(list => [...list, letter]);
-          console.log(this.lettersList())
       }
     });
   }

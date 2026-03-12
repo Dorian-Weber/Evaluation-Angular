@@ -11,5 +11,6 @@ import {Error} from '../../services/error';
 })
 export class Hangman {
   private errorService = inject(Error);
-  protected errors = this.errorService.counter();
+  protected errors = this.errorService.counter$;
+  //protected errors = 4;
 }
