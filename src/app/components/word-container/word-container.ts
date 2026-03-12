@@ -21,8 +21,13 @@ export class WordContainer implements OnInit {
 
   // Assigne un mot aléatoire grace au service
   ngOnInit(): void {
-    this.currentWord.set(this.wordService.getRandomWord().split(""));
-    console.log(this.currentWord());
+    //this.currentWord.set(this.wordService.getRandomWord().split(""));
+    this.wordService.getRandomWordApi().subscribe((data : any) => {
+      console.log(data[0].name)
+      this.currentWord.set(data[0].name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().split(""));
+      console.log(this.currentWord());
+    })
+
   }
 
 }

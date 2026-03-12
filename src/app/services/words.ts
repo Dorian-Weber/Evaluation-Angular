@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Words {
   private randomWord: string | undefined;
+
+  private apiUrl = "https://trouve-mot.fr/api/random "
+  constructor(private http: HttpClient) {};
+
 
   private readonly wordList: string[] = [
   "arbre","balai","banc","bille",
@@ -57,5 +63,9 @@ export class Words {
       return false;
     }
     return this.randomWord.includes(letter);
+  }
+
+  getRandomWordApi(): Observable<any> {
+    return this.http.get(this.apiUrl);
   }
 }
