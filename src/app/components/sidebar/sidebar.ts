@@ -1,4 +1,4 @@
-import {Component, signal, effect, inject} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {Letters} from '../../services/letters';
 
 
@@ -12,7 +12,6 @@ import {Letters} from '../../services/letters';
 export class Sidebar {
   private letters = inject(Letters);
 
-  lastLetter =this.letters.getLastLetter
   lettersList = this.letters.getLettersList
 
 }
