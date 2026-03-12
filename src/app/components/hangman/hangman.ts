@@ -1,6 +1,7 @@
 import {Component, inject} from '@angular/core';
 import {Letters} from '../../services/letters';
 import {Words} from '../../services/words';
+import {Error} from '../../services/error';
 
 @Component({
   selector: 'app-hangman',
@@ -9,6 +10,6 @@ import {Words} from '../../services/words';
   styleUrl: './hangman.css',
 })
 export class Hangman {
-
-  protected errors : number = 0;
+  private errorService = inject(Error);
+  protected errors = this.errorService.counter();
 }
