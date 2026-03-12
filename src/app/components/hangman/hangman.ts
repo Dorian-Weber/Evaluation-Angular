@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {Letters} from '../../services/letters';
+import {Words} from '../../services/words';
 
 @Component({
   selector: 'app-hangman',
@@ -8,4 +10,5 @@ import { Component } from '@angular/core';
 })
 export class Hangman {
 
+  protected errors : number = 0;
 }
