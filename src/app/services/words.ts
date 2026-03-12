@@ -37,7 +37,7 @@ export class Words {
 
   private defineRandomWord(): void {
     let index: number = Math.floor(Math.random() * this.wordList.length);
-    this.randomWord = this.wordList[index];
+    this.randomWord = this.wordList[index].toUpperCase();
   }
 
   private resetRandomWord(): void {
