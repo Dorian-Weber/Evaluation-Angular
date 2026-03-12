@@ -1,6 +1,4 @@
-import {Component, inject, signal} from '@angular/core';
-import {Letters} from '../../services/letters';
-import {Words} from '../../services/words';
+import {Component, inject} from '@angular/core';
 import {Error} from '../../services/error';
 
 @Component({

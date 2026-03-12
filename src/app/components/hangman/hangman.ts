@@ -1,6 +1,4 @@
 import {Component, inject} from '@angular/core';
-import {Letters} from '../../services/letters';
-import {Words} from '../../services/words';
 import {Error} from '../../services/error';
 
 @Component({
@@ -12,5 +10,4 @@ import {Error} from '../../services/error';
 export class Hangman {
   private errorService = inject(Error);
   protected errors = this.errorService.counter$;
-  //protected errors = 4;
 }
