@@ -6,7 +6,7 @@
         <p class="hint-text">Tapez une lettre au clavier</p>
         <div id="letters-used" class="letters-container">
           @for (letter of lettersList(); track $index){
-              <span class="" [ngClass]="{
+              <span class="badge-lg" [ngClass]="{
               'badge-success':getRandomWord.includes(letter),
               'badge-error':!getRandomWord.includes(letter) }">{{ letter }}</span>
 
