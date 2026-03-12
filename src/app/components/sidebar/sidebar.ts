@@ -17,7 +17,7 @@ export class Sidebar {
   private letters = inject(Letters);
   private word = inject(Words);
 
-  lettersList = this.letters.getLettersList
-  getRandomWord = this.word.getRandomWord()
+  protected lettersList = this.letters.getLettersList
+  protected getRandomWord = this.word.getRandomWord()
 
 }
