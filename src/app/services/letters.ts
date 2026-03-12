@@ -14,7 +14,7 @@ export class Letters {
 
   constructor() {
     effect(() => {
-      const letter = this.lastLetter();
+      const letter = this.lastLetter()?.toUpperCase();
       if(letter)
         if (!this.lettersList().includes(letter)) {
           this.lettersList.update(list => [...list, letter]);
