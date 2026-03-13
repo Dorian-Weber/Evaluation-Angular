@@ -17,7 +17,7 @@ export class WordContainer implements OnInit {
   private wordService = inject(Words);
   private letterService = inject(Letters);
 
-  lettersList = this.letterService.lettersList;
+  lettersList = this.letterService.lettersList$;
 
   // Assigne un mot aléatoire grace au service
   ngOnInit(): void {
