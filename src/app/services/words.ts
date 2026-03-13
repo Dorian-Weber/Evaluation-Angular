@@ -68,4 +68,14 @@ export class Words {
   getRandomWordApi(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
+
+  testLetterAgainstWord(letterList: string[]): boolean {
+    if (this.randomWord === undefined) return false;
+    for (let letter of this.randomWord) {
+      if (!letterList.includes(letter)) {
+        return false
+      }
+    }
+    return true;
+  }
 }
