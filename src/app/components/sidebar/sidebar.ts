@@ -20,5 +20,5 @@ export class Sidebar {
   protected reset = inject(GameService)
 
   protected lettersList$ = this.letters.getLettersList$
-  protected getRandomWord = this.word.getRandomWord()
+  protected getRandomWord$ = this.word.randomWord$;
 }
