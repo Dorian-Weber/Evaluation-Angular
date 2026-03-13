@@ -13,21 +13,14 @@ import {Letters} from '../../services/letters';
 })
 // Implementation de l'interface OnInit pour assigner le mot a l'initialisation
 export class WordContainer implements OnInit {
-  currentWord = signal<string[]>([]);
-  private wordService = inject(Words);
+  protected wordService = inject(Words);
   private letterService = inject(Letters);
 
   lettersList = this.letterService.lettersList;
+  currentWord = this.wordService.randomWord;
 
-  // Assigne un mot aléatoire grace au service
-  ngOnInit(): void {
-    //this.currentWord.set(this.wordService.getRandomWord().split(""));
-    this.wordService.getRandomWordApi().subscribe((data : any) => {
-      console.log(data[0].name)
-      this.currentWord.set(data[0].name.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase().split(""));
-      console.log(this.currentWord());
-    })
-
+  ngOnInit() {
+    this.wordService.getRandomWord();
   }
 
 }
