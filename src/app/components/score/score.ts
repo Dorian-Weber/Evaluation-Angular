@@ -10,5 +10,5 @@ import {Error} from '../../services/error';
 export class Score {
   private errorService = inject(Error);
 
-  protected counter = this.errorService.counter$;
+  protected counter$ = this.errorService.counter$;
 }
