@@ -9,19 +9,27 @@ export class Letters {
 
   private keyboard = inject(Keyboard);
 
-  lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
-  lettersList = signal<string[]>([]);
+  private _lastLetter$ = toSignal(this.keyboard.letters$, { initialValue: null });
+  lastLetter$ = signal<string | null>(null)
+  lettersList$ = signal<string[]>([]);
+
+
 
   constructor() {
     effect(() => {
-      const letter = this.lastLetter()?.toUpperCase();
+      this.lastLetter$.set(this._lastLetter$());
+
+    });
+    effect(() => {
+        const letter = this.lastLetter$()?.toUpperCase();
       if(letter)
-        if (!this.lettersList().includes(letter)) {
-          this.lettersList.update(list => [...list, letter]);
+        if (!this.lettersList$().includes(letter)) {
+          this.lettersList$.update(list => [...list, letter]);
       }
     });
   }
- readonly getLastLetter = this.lastLetter;
- readonly getLettersList = this.lettersList;
+
+  readonly getLastLetter$ = this.lastLetter$;
+  readonly getLettersList$ = this.lettersList$;
 
 }

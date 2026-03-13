@@ -1,6 +1,6 @@
 import {inject, Injectable, signal} from '@angular/core';
-import {Score} from '../components/score/score';
 import {Error} from './error';
+import {Letters} from './letters';
 
 
 @Injectable({
@@ -8,6 +8,7 @@ import {Error} from './error';
 })
 export class GameService {
   private error = inject(Error)
+  private letters = inject(Letters)
 
   gameState$ = signal<'playing' | 'win' | 'lose'>('playing');
 
@@ -27,9 +28,11 @@ export class GameService {
   }
 
   resetGame() {
-    this.setPlaying()
-    this.error.counter$.update(count =>count = 0)
-    // TODO randomword,si dialog fermer, liste lettre utiliser, placeholder
+    this.setPlaying();
+    this.error.counter$.update(count =>count = 0);
+    this.letters.lettersList$.set([])
+    this.letters.lastLetter$.set(null)
+    // TODO randomword,si dialog fermer, placeholder
 
   }
 
