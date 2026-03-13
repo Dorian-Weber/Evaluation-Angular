@@ -1,7 +1,6 @@
 import {effect, inject, Injectable, signal} from '@angular/core';
 import {Words} from './words';
 import {Letters} from './letters';
-import {Keyboard} from './keyboard';
 
 @Injectable({
   providedIn: 'root',
@@ -11,10 +10,10 @@ export class Error {
   private letterService = inject(Letters);
 
   counter$ = signal(0);
-
+  protected lastLetter$ = this.letterService.getLastLetter$
   constructor() {
     effect(() => {
-      const letter = this.lastLetter()?.toUpperCase()
+      const letter = this.lastLetter$()?.toUpperCase()
       if (!letter) return;
       if (!this.wordService.isIncluded(letter)){
         this.counter$.update(count => count + 1);
@@ -22,6 +21,6 @@ export class Error {
     })
   }
 
-  protected lastLetter = this.letterService.getLastLetter
+
 
 }

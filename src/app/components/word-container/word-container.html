@@ -1,7 +1,7 @@
 <div class="word-container">
   <div id="word-display" class="word-display">
-    @for (letter of currentWord(); track $index) {
-      @if (lettersList().includes(letter)) {
+    @for (letter of currentWord$(); track $index) {
+      @if (lettersList$().includes(letter)) {
         <span>{{ letter }}</span>
       } @else {
         <span class="letter-placeholder"></span>

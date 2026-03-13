@@ -7,7 +7,7 @@ import {wordApiModel} from '../model/wordApiModel';
   providedIn: 'root',
 })
 export class Words {
-  randomWord = signal<string | undefined>(undefined);
+  randomWord$ = signal<string | undefined>(undefined);
 
   private apiUrl = "https://trouve-mot.fr/api/random "
   constructor(private http: HttpClient) {};
@@ -20,28 +20,28 @@ export class Words {
         .replace(/[\u0300-\u036f]/g, "")
         .toUpperCase();
 
-      this.randomWord.set(formattedWord);
+      this.randomWord$.set(formattedWord);
     });
   }
 
   resetRandomWord(): void {
-    this.randomWord.set(undefined);
+    this.randomWord$.set(undefined);
   }
 
   // Verifie si le mot a deja été defini, et renvoie le mot aleatoire defini
   getRandomWord(): string | undefined{
-    if (this.randomWord === undefined) {
+    if (this.randomWord$ === undefined) {
       this.defineRandomWord()
     }
-    console.log(this.randomWord());
-    return this.randomWord();
+    console.log(this.randomWord$());
+    return this.randomWord$();
   }
 
   isIncluded(letter: string) : boolean {
-    if (this.randomWord() === undefined) {
+    if (this.randomWord$() === undefined) {
       return false;
     }
-    return this.randomWord()!.includes(letter);
+    return this.randomWord$()!.includes(letter);
   }
 
   getRandomWordApi(): Observable<wordApiModel[]> {
@@ -49,8 +49,8 @@ export class Words {
   }
 
   testLetterAgainstWord(letterList: string[]): boolean {
-    if (this.randomWord === undefined) return false;
-    for (let letter of this.randomWord()!) {
+    if (this.randomWord$ === undefined) return false;
+    for (let letter of this.randomWord$()!) {
       if (!letterList.includes(letter)) {
         return false
       }

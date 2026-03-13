@@ -19,7 +19,7 @@ export class GameOver {
 
   private error$ = this.errorService.counter$
   private testLetterAgainstWord = this.wordsService.testLetterAgainstWord
-  private lettersList$ = this.lettersService.lettersList;
+  private lettersList$ = this.lettersService.lettersList$;
 
 
   constructor() {
