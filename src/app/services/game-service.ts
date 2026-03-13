@@ -1,10 +1,13 @@
-import {Injectable, signal} from '@angular/core';
+import {inject, Injectable, signal} from '@angular/core';
+import {Score} from '../components/score/score';
+import {Error} from './error';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameService {
+  private error = inject(Error)
 
   gameState$ = signal<'playing' | 'win' | 'lose'>('playing');
 
@@ -21,6 +24,13 @@ export class GameService {
   setPlaying() {
     this.gameState$.set('playing')
     console.log(this.gameState$())
+  }
+
+  resetGame() {
+    this.setPlaying()
+    this.error.counter$.update(count =>count = 0)
+    // TODO randomword,si dialog fermer, liste lettre utiliser, placeholder
+
   }
 
 
