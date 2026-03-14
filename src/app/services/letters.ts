@@ -6,6 +6,7 @@ import {toSignal} from '@angular/core/rxjs-interop';
   providedIn: 'root',
 })
 export class Letters {
+  // !!! DEPRECATED !!!
 
   private keyboard = inject(Keyboard);
 

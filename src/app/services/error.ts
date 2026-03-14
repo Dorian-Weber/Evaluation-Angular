@@ -6,6 +6,7 @@ import {Letters} from './letters';
   providedIn: 'root',
 })
 export class Error {
+  // !!! DEPRECATED !!!
   private wordService = inject(Words);
   private letterService = inject(Letters);
 

@@ -14,6 +14,7 @@ import {GameService} from '../../services/game-service';
   styleUrl: './sidebar.css',
 })
 
+// !!! Possible migration de la logique du html vers service !!!
 export class Sidebar {
   protected gameService = inject(GameService)
 }
