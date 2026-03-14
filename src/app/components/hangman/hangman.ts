@@ -1,5 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {Error} from '../../services/error';
+import {GameService} from '../../services/game-service';
 
 @Component({
   selector: 'app-hangman',
@@ -8,6 +9,6 @@ import {Error} from '../../services/error';
   styleUrl: './hangman.css',
 })
 export class Hangman {
-  private errorService = inject(Error);
-  protected errors$ = this.errorService.counter$;
+  private gameService = inject(GameService);
+  protected errors$ = this.gameService.counter$;
 }

@@ -85,10 +85,10 @@ export class GameService {
   }
 
 
-  testLetterAgainstWord(letterList: string[]): boolean {
+  testLetterAgainstWord(): boolean {
     if (this.words.randomWord$() === "") return false;
     for (let letter of this.words.randomWord$()!.split("")) {
-      if (!letterList.includes(letter)) {
+      if (!this.lettersList$().includes(letter)) {
         return false
       }
     }
