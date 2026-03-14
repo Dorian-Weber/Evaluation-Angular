@@ -12,13 +12,17 @@ import {Letters} from '../../services/letters';
   styleUrl: './word-container.css',
 })
 // Implementation de l'interface OnInit pour assigner le mot a l'initialisation
-export class WordContainer {
+export class WordContainer implements OnInit {
 
   private wordService = inject(Words);
   private letterService = inject(Letters);
 
+
+
+  ngOnInit() {
+    this.wordService.defineRandomWord()
+  }
+
   lettersList$ = this.letterService.lettersList$;
   currentWord$ = this.wordService.randomWord$;
-
-
 }

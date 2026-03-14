@@ -1,4 +1,4 @@
-import {Injectable, OnInit, signal} from '@angular/core';
+import {effect, Injectable, OnInit, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {wordApiModel} from '../model/wordApiModel';
@@ -6,33 +6,17 @@ import {wordApiModel} from '../model/wordApiModel';
 @Injectable({
   providedIn: 'root',
 })
-export class Words implements OnInit {
-  randomWord$ = signal<string | undefined>(undefined);
+export class Words {
+  randomWord$ = signal<string>("");
 
-  private apiUrl = "https://trouve-mot.fr/api/random "
+  private apiUrl = "https://trouve-mot.fr/api/random"
   constructor(private http: HttpClient) {};
 
-  ngOnInit() {
-    this.defineRandomWord();
-  }
 
-
-  // Verifie si le mot a deja été defini, et renvoie le mot aleatoire defini
-  getRandomWord(): string | undefined{
-    if (this.randomWord$ === undefined) {
-      this.defineRandomWord()
-    }
-    console.log(this.randomWord$());
-    return this.randomWord$();
-  }
-
-  private defineRandomWord(): void {
+   defineRandomWord(): void {
     this.getRandomWordApi().subscribe(word => {
-      const formattedWord = word[0].name
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toUpperCase();
-
+      const formattedWord = this.normalizeWord(word[0].name).toUpperCase();
+      console.log(formattedWord);
       this.randomWord$.set(formattedWord);
     });
   }
@@ -41,14 +25,21 @@ export class Words implements OnInit {
     return this.http.get<wordApiModel[]>(this.apiUrl);
   }
 
+  private normalizeWord(word :string): string {
+    // Enleve les accents et les caracteres speciaux
+    return word.normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace("œ", "oe")
+  }
+
   resetRandomWord(): void {
-    this.randomWord$.set(undefined);
+    this.randomWord$.set("");
     this.defineRandomWord();
   }
 
 
   isIncluded(letter: string) : boolean {
-    if (this.randomWord$() === undefined) {
+    if (this.randomWord$() === "") {
       return false;
     }
     return this.randomWord$()!.includes(letter);
@@ -56,12 +47,16 @@ export class Words implements OnInit {
 
 
   testLetterAgainstWord(letterList: string[]): boolean {
-    if (this.randomWord$ === undefined) return false;
-    for (let letter of this.randomWord$()!) {
+    if (this.randomWord$() === "") return false;
+    for (let letter of this.randomWord$()!.split("")) {
       if (!letterList.includes(letter)) {
         return false
       }
     }
     return true;
   }
+
+
+
+
 }

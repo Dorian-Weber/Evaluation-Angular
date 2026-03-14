@@ -18,7 +18,7 @@ export class GameOver {
   private lettersService= inject(Letters);
 
   private error$ = this.errorService.counter$
-  private testLetterAgainstWord = this.wordsService.testLetterAgainstWord
+  //private testLetterAgainstWord = this.wordsService.testLetterAgainstWord
   private lettersList$ = this.lettersService.lettersList$;
 
 
@@ -28,7 +28,7 @@ export class GameOver {
         this.gameService.setLose()
         return;
       };
-      if (this.testLetterAgainstWord(this.lettersList$())) {
+      if (this.wordsService.testLetterAgainstWord(this.lettersList$())) {
         this.gameService.setWin()
         return;
       }
