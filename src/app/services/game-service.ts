@@ -24,6 +24,7 @@ export class GameService {
   readonly getLettersList$ = this.lettersList$;
 
   constructor() {
+
     effect(() => {
       this.lastLetter$.set(this._lastLetter$());
 
@@ -66,6 +67,14 @@ export class GameService {
     this.lastLetter$.set(null)
     // TODO randomword,si dialog fermer, placeholder
     this.words.resetRandomWord();
+  }
+
+  defineWord() {
+    this.words.defineRandomWord();
+  }
+
+  getCurrentWord(): string[] {
+    return this.words.randomWord$().split("");
   }
 
   isIncluded(letter: string) : boolean {

@@ -1,6 +1,7 @@
 import {Component, OnInit, signal, inject} from '@angular/core';
 import {Words} from '../../services/words';
 import {Letters} from '../../services/letters';
+import {GameService} from '../../services/game-service';
 
 
 @Component({
@@ -11,18 +12,8 @@ import {Letters} from '../../services/letters';
   templateUrl: './word-container.html',
   styleUrl: './word-container.css',
 })
-// Implementation de l'interface OnInit pour assigner le mot a l'initialisation
-export class WordContainer implements OnInit {
 
-  private wordService = inject(Words);
-  private letterService = inject(Letters);
+export class WordContainer {
+  protected gameService = inject(GameService);
 
-
-
-  ngOnInit() {
-    this.wordService.defineRandomWord()
-  }
-
-  lettersList$ = this.letterService.lettersList$;
-  currentWord$ = this.wordService.randomWord$;
 }
