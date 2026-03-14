@@ -15,10 +15,5 @@ import {GameService} from '../../services/game-service';
 })
 
 export class Sidebar {
-  private letters = inject(Letters);
-  private word = inject(Words);
-  protected reset = inject(GameService)
-
-  protected lettersList$ = this.letters.getLettersList$
-  protected getRandomWord$ = this.word.randomWord$;
+  protected gameService = inject(GameService)
 }
