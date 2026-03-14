@@ -77,14 +77,18 @@ export class GameService {
     return this.words.randomWord$().split("");
   }
 
+  // Verifie si une lettre est correcte (dans le mot a trouver)
+  // !!! trop d'appels qui se cumulent exponientellement !!!
   isIncluded(letter: string) : boolean {
     if (this.words.randomWord$() === "") {
       return false;
     }
+    console.log(letter + " : " + this.words.randomWord$()!.includes(letter));
     return this.words.randomWord$()!.includes(letter);
   }
 
 
+  // Verifie si toutes les lettres d'un mot on été trouvés
   testLetterAgainstWord(): boolean {
     if (this.words.randomWord$() === "") return false;
     for (let letter of this.words.randomWord$()!.split("")) {
@@ -93,6 +97,11 @@ export class GameService {
       }
     }
     return true;
+  }
+
+  // Verifie si une lettre du mot a été devinée
+  isFound(letter: string) : boolean {
+    return this.lettersList$().includes(letter);
   }
 
 

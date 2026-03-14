@@ -16,6 +16,7 @@ export class GameOver {
 
   private error$ = this.gameService.counter$
 
+  // !!! Migrer la logique dans gameService si possible !!!
   constructor() {
     effect(() => {
       if (this.error$() >= 5) {
