@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {wordApiModel} from '../model/wordApiModel';
 
+// Responsable de distribuer un signal avec un mot aléatoire a trouver
 @Injectable({
   providedIn: 'root',
 })

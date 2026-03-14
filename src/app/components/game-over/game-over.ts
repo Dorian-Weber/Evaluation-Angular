@@ -28,7 +28,7 @@ export class GameOver {
         this.gameService.setLose()
         return;
       };
-      if (this.wordsService.testLetterAgainstWord(this.lettersList$())) {
+      if (this.gameService.testLetterAgainstWord(this.lettersList$())) {
         this.gameService.setWin()
         return;
       }
