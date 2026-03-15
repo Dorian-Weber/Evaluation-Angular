@@ -1,9 +1,13 @@
-<dialog id="game-over-modal" class="modal">
+<dialog id="game-over-modal" class="modal" #gameOverDialog>
   <div class="modal-box">
     <h3 class="font-bold text-lg">Partie terminée !</h3>
-    <p class="py-4" id="game-result"></p>
+    @if(gameService.gameState$()==='win'){
+      <p class="py-4" id="game-result">Vous avez gagnée Félicitation ! </p>
+    } @else if (gameService.gameState$()==='lose'){
+      <p class="py-4" id="game-result">Vous avez perdu... retentez votre chance !</p>
+    }
     <div class="modal-action">
-      <button class="btn btn-primary">Rejouer</button>
+      <button class="btn btn-primary" (click)="gameService.resetGame()">Rejouer</button>
     </div>
   </div>
 </dialog>

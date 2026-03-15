@@ -1,4 +1,4 @@
-import {Component, effect, inject} from '@angular/core';
+import {Component, effect, ElementRef, inject, ViewChild, viewChild} from '@angular/core';
 import {GameService} from '../../services/game-service';
 import {Error} from '../../services/error';
 import {Words} from '../../services/words';
@@ -12,24 +12,25 @@ import {Letters} from '../../services/letters';
 })
 export class GameOver {
 
-  private gameService= inject(GameService);
+  protected gameService= inject(GameService);
 
-  private error$ = this.gameService.counter$
+@ViewChild('gameOverDialog') dialog! : ElementRef<HTMLDialogElement>;
 
-  // !!! Migrer la logique dans gameService si possible !!!
+  // constructeur qui va vérifier et écouter l'état de gameState pour ouvrir ou non la boite de dialog
   constructor() {
     effect(() => {
-      if (this.error$() >= 5) {
-        this.gameService.setLose()
-        return;
+      if (this.gameService.gameState$() === 'lose' || this.gameService.gameState$() === 'win') {
+        this.dialog.nativeElement.showModal();
+      } else {
+        this.closeModal()
       }
-      if (this.gameService.testLetterAgainstWord()) {
-        this.gameService.setWin()
-        return;
-      }
-    })
-  }
+    });
 
+  }
+  closeModal(): void {
+    this.dialog.nativeElement.close();
+    this.gameService.resetGame()
+  }
 
 
 

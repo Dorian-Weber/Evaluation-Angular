@@ -24,7 +24,7 @@ export class GameService {
   readonly getLettersList$ = this.lettersList$;
 
   constructor() {
-
+  // Pourquoi ajouter celui la ? il est deja ligne 17 ?
     effect(() => {
       this.lastLetter$.set(this._lastLetter$());
 
@@ -43,6 +43,16 @@ export class GameService {
         this.counter$.update(count => count + 1);
       }
     });
+    effect(() => {
+      if (this.counter$() >= 5) {
+        this.setLose()
+        return;
+      }
+      if (this.testLetterAgainstWord()) {
+        this.setWin()
+        return;
+      }
+    })
   }
 
   setWin() {
@@ -65,7 +75,7 @@ export class GameService {
     this.counter$.update(count =>count = 0);
     this.lettersList$.set([])
     this.lastLetter$.set(null)
-    // TODO randomword,si dialog fermer, placeholder
+    // TODO si dialog fermer
     this.words.resetRandomWord();
   }
 
@@ -77,7 +87,7 @@ export class GameService {
     return this.words.randomWord$().split("");
   }
 
-  // Verifie si une lettre est correcte (dans le mot a trouver)
+  // Verifie si une lettre est correcte (dans le mot à trouver)
   // !!! trop d'appels qui se cumulent exponientellement !!!
   isIncluded(letter: string) : boolean {
     if (this.words.randomWord$() === "") {
@@ -88,7 +98,7 @@ export class GameService {
   }
 
 
-  // Verifie si toutes les lettres d'un mot on été trouvés
+  // Verifie si toutes les lettres d'un mot ont été trouvés
   testLetterAgainstWord(): boolean {
     if (this.words.randomWord$() === "") return false;
     for (let letter of this.words.randomWord$()!.split("")) {
@@ -103,6 +113,7 @@ export class GameService {
   isFound(letter: string) : boolean {
     return this.lettersList$().includes(letter);
   }
+
 
 
 }
