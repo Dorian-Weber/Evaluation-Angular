@@ -9,7 +9,7 @@ import {GameService} from './services/game-service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Score, WordContainer, Hangman, GameOver, Sidebar],
+  imports: [RouterOutlet, Score],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
