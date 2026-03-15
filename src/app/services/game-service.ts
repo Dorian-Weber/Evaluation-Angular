@@ -57,16 +57,19 @@ export class GameService {
 
   setWin() {
     this.gameState$.set('win')
+    this.keyboard.stopListening()
     console.log(this.gameState$())
   }
 
   setLose() {
     this.gameState$.set('lose')
+    this.keyboard.stopListening()
     console.log(this.gameState$())
   }
 
   setPlaying() {
     this.gameState$.set('playing')
+    this.keyboard.startListening()
     console.log(this.gameState$())
   }
 
@@ -75,7 +78,6 @@ export class GameService {
     this.counter$.update(count =>count = 0);
     this.lettersList$.set([])
     this.lastLetter$.set(null)
-    // TODO si dialog fermer
     this.words.resetRandomWord();
   }
 
