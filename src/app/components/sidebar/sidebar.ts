@@ -3,12 +3,14 @@ import {Letters} from '../../services/letters';
 import {Words} from '../../services/words';
 import {NgClass} from '@angular/common';
 import {GameService} from '../../services/game-service';
+import {RouterLink} from '@angular/router';
 
 
 @Component({
   selector: 'app-sidebar',
   imports: [
-    NgClass
+    NgClass,
+    RouterLink
   ],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.css',

@@ -10,7 +10,7 @@ export const routes: Routes = [
     title: 'WishFlix - Accueil'
   },
   {
-    path: 'game/:id',
+    path: 'history',
     component: History,
     title: 'WishFlix - Fiche de jeu'
   },
