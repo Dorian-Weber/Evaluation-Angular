@@ -1,4 +1,4 @@
-export interface GameStats {
+export interface GameStatModel {
   date: Date,
   wordToFind: string,
   lettersFound: string[],

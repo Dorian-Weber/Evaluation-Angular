@@ -4,6 +4,7 @@ import {Letters} from './letters';
 import {Words} from './words';
 import {Keyboard} from './keyboard';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {GameState} from '../model/gameState';
 
 // Controle la logique du jeu
 @Injectable({
@@ -17,7 +18,7 @@ export class GameService {
   lastLetter$ = signal<string | null>(null)
   lettersList$ = signal<string[]>([]);
 
-  gameState$ = signal<'playing' | 'win' | 'lose'>('playing');
+  gameState$ = signal<GameState>("playing");
   counter$ = signal(0);
 
   readonly getLastLetter$ = this.lastLetter$;
