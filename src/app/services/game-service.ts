@@ -83,6 +83,7 @@ export class GameService {
     this.lettersList$.set([])
     this.lastLetter$.set(null)
     this.words.resetRandomWord();
+    console.log("reset word")
   }
 
   defineWord() {

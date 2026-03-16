@@ -13,6 +13,7 @@ import {Letters} from '../../services/letters';
 export class GameOver {
 
   protected gameService= inject(GameService);
+  private modalState: boolean = false;
 
 @ViewChild('gameOverDialog') dialog! : ElementRef<HTMLDialogElement>;
 
@@ -21,7 +22,8 @@ export class GameOver {
     effect(() => {
       if (this.gameService.gameState$() === 'lose' || this.gameService.gameState$() === 'win') {
         this.dialog.nativeElement.showModal();
-      } else {
+        this.modalState = true;
+      } else if (this.modalState) {
         this.closeModal()
       }
     });
@@ -29,7 +31,8 @@ export class GameOver {
   }
   closeModal(): void {
     this.dialog.nativeElement.close();
-    this.gameService.resetGame()
+    //this.gameService.resetGame();
+    this.modalState = false;
   }
 
 
