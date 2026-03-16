@@ -53,6 +53,9 @@ export class GameService {
         return;
       }
     })
+    effect(() => {
+      console.log(this.gameState$())
+    })
   }
 
   setWin() {
