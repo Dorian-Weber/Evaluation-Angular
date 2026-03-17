@@ -25,6 +25,8 @@ export class GameService {
   gameState = signal<GameState>("playing");
   counter = signal<number>(0);
 
+  private correctLetters: string[] = [];
+
   readonly getLettersList = this.lettersList;
 
   constructor() {
@@ -35,18 +37,16 @@ export class GameService {
     });
     effect(() => {
       const letter = this.lastLetter()?.toUpperCase();
-      if(letter)
-        if (!this.lettersList().includes(letter)) {
-          this.lettersList.update(list => [...list, letter]);
-        }
-    });
-    effect(() => {
-      const letter = this.lastLetter()?.toUpperCase()
       if (!letter) return;
-      if (!this.isIncluded(letter)){
-        this.counter.update(count => count + 1);
+      if (!this.lettersList().includes(letter)) {
+        if (!this.isIncluded(letter)) {
+          this.counter.update(count => count + 1);
+        } else  if (!this.correctLetters.includes(letter)) {
+          this.correctLetters.push(letter);}
+        this.lettersList.update(list => [...list, letter]);
       }
     });
+
     effect(() => {
       if (this.counter() >= 5) {
         this.setLose()
@@ -87,6 +87,7 @@ export class GameService {
     this.counter.update(count =>count = 0);
     this.lettersList.set([])
     this.lastLetter.set(null)
+    this.correctLetters = [];
     this.words.resetRandomWord();
     console.log("reset word")
   }
@@ -134,7 +135,7 @@ export class GameService {
     return {
       date: new Date(),
       wordToFind: this.getCurrentWord().join(""),
-      lettersFound: this.getLettersList(),
+      lettersFound: this.correctLetters,
       errors: this.counter(),
       state: state,
     }
