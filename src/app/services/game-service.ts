@@ -23,7 +23,6 @@ export class GameService {
   readonly getLettersList = this.lettersList;
 
   constructor() {
-  // Pourquoi ajouter celui la ? il est deja ligne 17 ?
     effect(() => {
       this.lastLetter.set(this._lastLetter());
 
