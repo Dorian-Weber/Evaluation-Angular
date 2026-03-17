@@ -1,4 +1,4 @@
-import {effect, inject, Injectable, signal, WritableSignal} from '@angular/core';
+import {effect, inject, Injectable, signal} from '@angular/core';
 
 import {Words} from './words';
 import {Keyboard} from './keyboard';
@@ -16,8 +16,8 @@ export class GameService {
   private keyboard = inject(Keyboard);
   private localStorage = inject(LocalStorage);
 
-  //private record = signal<number>(this.localStorage.getNumber("record"));
-  //private currentStreak = signal<number>(this.localStorage.getNumber("streak"));
+  private record = signal<number>(this.localStorage.getNumber("record"));
+  private currentStreak = signal<number>(this.localStorage.getNumber("streak"));
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -66,9 +66,12 @@ export class GameService {
     })
     effect(() => {
       console.log(this.gameState())
+    })
 
-      //this.record.set(this.localStorage.getNumber("record"));
-      //this.currentStreak.set(this.localStorage.getNumber("streak"));
+    effect(() => {
+
+
+
     })
   }
 
