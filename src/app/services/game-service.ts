@@ -149,4 +149,8 @@ export class GameService {
     return <GameHistory[]> this.localStorage.getList("history");
   }
 
+  clearHistory(): void {
+    this.localStorage.clear("history");
+  }
+
 }
