@@ -16,8 +16,8 @@ export class GameService {
   private keyboard = inject(Keyboard);
   private localStorage = inject(LocalStorage);
 
-  private record = signal<number>(this.localStorage.getNumber("record"));
-  private currentStreak = signal<number>(this.localStorage.getNumber("streak"));
+  private record = signal<number>(0);
+  private currentStreak = signal<number>(0);
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -29,10 +29,15 @@ export class GameService {
   private correctLetters: string[] = [];
 
   readonly getLettersList = this.lettersList;
-  readonly getRecord = signal<number>(this.localStorage.getNumber("record"));
-  //readonly getCurrentStreak = this.localStorage.getNumber("streak");
+  getRecord = this.record.asReadonly();
+  getCurrentStreak = this.currentStreak.asReadonly();
 
   constructor() {
+    effect(() => {
+      this.record.set(this.localStorage.getNumber("record"))
+      this.currentStreak.set(this.localStorage.getNumber("streak"))
+    })
+
 
     effect(() => {
       this.lastLetter.set(this._lastLetter());
@@ -51,6 +56,7 @@ export class GameService {
     });
 
     effect(() => {
+      if (this.gameState() !== "playing") return;
       if (this.counter() >= 5) {
         this.setLose()
         this.addGameToHistory();
@@ -64,15 +70,7 @@ export class GameService {
         return;
       }
     })
-    effect(() => {
-      console.log(this.gameState())
-    })
 
-    effect(() => {
-
-
-
-    })
   }
 
   setWin() {
@@ -162,17 +160,23 @@ export class GameService {
 
   clearHistory(): void {
     this.localStorage.clear("history");
+    this.record.set(0);
     this.localStorage.clear("record");
+    this.currentStreak.set(0);
     this.localStorage.clear("streak");
   }
 
   setRecord() {
     if (this.gameState() == "win") {
-      this.localStorage.setNumber("record", this.localStorage.getNumber("record") + 1);
-    } else {
-      this.localStorage.setNumber("streak", 0);
+      this.currentStreak.update(count => count + 1);
+    } else if (this.gameState() == "lose") {
+      this.currentStreak.set(0);
     }
+    if (this.currentStreak() > this.record()) this.record.set(this.currentStreak());
 
-    if (this.localStorage.getNumber("streak") > this.localStorage.getNumber("record")) this.localStorage.setNumber("record", this.localStorage.getNumber("streak"));
+    this.localStorage.setNumber("record", this.record());
+    this.localStorage.setNumber("streak", this.currentStreak());
+
+    //this.gameState.set("playing")
   }
 }
