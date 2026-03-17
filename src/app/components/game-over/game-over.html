@@ -2,9 +2,10 @@
   <div class="modal-box">
     <h3 class="font-bold text-lg">Partie terminée !</h3>
     @if(gameService.gameState()==='win'){
-      <p class="py-4" id="game-result">Vous avez gagnée Félicitation ! </p>
+      <p class="py-4" id="game-result">Vous avez gagné Félicitation ! </p>
     } @else if (gameService.gameState()==='lose'){
-      <p class="py-4" id="game-result">Vous avez perdu... Le mot était "{{ getCurrentWordJoin() }}" retentez votre chance !</p>
+      <p class="py-4" id="game-result">Vous avez perdu... Le mot était "{{ getCurrentWordJoin() }}".</p>
+      <p class="py-4" id="game-result">Retentez votre chance !</p>
     }
     <div class="modal-action">
       <button class="btn btn-primary" (click)="gameService.resetGame()">Rejouer</button>
