@@ -1,1 +1,23 @@
-<p>history works!</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Resultat</th>
+      <th>Mot à trouver</th>
+      <th>Lettres jouées</th>
+      <th>Erreurs</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (game of gameService.getHistory(); track game.date) {
+      <tr>
+        <td>{{ game.state }}</td>
+        <td>{{ game.wordToFind }}</td>
+        <td>{{ game.lettersFound }}</td>
+        <td>{{ game.errors }}</td>
+        <td>{{ game.date }}</td>
+      </tr>
+    }
+  </tbody>
+</table>
