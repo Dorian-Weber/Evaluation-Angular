@@ -14,7 +14,7 @@ export class GameService {
   private words = inject(Words);
   private keyboard = inject(Keyboard);
 
-  gameHistory: GameHistory[] = [];
+  private gameHistory: GameHistory[] = [];
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -137,6 +137,10 @@ export class GameService {
 
   addGameToHistory(): void {
     this.gameHistory.push(this.endGame());
+  }
+
+  getHistory(): GameHistory[] {
+    return this.gameHistory;
   }
 
 }
