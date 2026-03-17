@@ -125,12 +125,16 @@ export class GameService {
   }
 
   private endGame(): GameHistory {
+    let state: string = "" ;
+    if (this.gameState() == "lose") state = "Perdue";
+    else if (this.gameState() == "win") state = "Gagnée";
+
     const currentStats: GameHistory = {
       date: new Date(),
       wordToFind: this.getCurrentWord().join(""),
       lettersFound: this.getLettersList(),
       errors: this.counter(),
-      state: this.gameState().toString(),
+      state: state,
     }
     return currentStats;
   }
