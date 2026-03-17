@@ -18,7 +18,7 @@ export class GameService {
   lettersList = signal<string[]>([]);
 
   gameState = signal<GameState>("playing");
-  counter = signal(0);
+  counter = signal<number>(0);
 
   readonly getLettersList = this.lettersList;
 
