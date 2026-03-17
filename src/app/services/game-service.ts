@@ -4,6 +4,7 @@ import {Words} from './words';
 import {Keyboard} from './keyboard';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {GameState} from '../model/gameState';
+import {GameHistory} from '../model/gameHistory';
 
 // Controle la logique du jeu
 @Injectable({
@@ -12,6 +13,8 @@ import {GameState} from '../model/gameState';
 export class GameService {
   private words = inject(Words);
   private keyboard = inject(Keyboard);
+
+  gameHistory: GameHistory[] = [];
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -23,6 +26,7 @@ export class GameService {
   readonly getLettersList = this.lettersList;
 
   constructor() {
+
     effect(() => {
       this.lastLetter.set(this._lastLetter());
 
@@ -44,10 +48,12 @@ export class GameService {
     effect(() => {
       if (this.counter() >= 5) {
         this.setLose()
+        this.addGameToHistory();
         return;
       }
       if (this.testLetterAgainstWord()) {
         this.setWin()
+        this.addGameToHistory();
         return;
       }
     })
@@ -118,6 +124,19 @@ export class GameService {
     return this.lettersList().includes(letter);
   }
 
+  private endGame(): GameHistory {
+    const currentStats: GameHistory = {
+      date: new Date(),
+      wordToFind: this.getCurrentWord().join(""),
+      lettersFound: this.getLettersList(),
+      errors: this.counter(),
+      state: this.gameState().toString(),
+    }
+    return currentStats;
+  }
 
+  addGameToHistory(): void {
+    this.gameHistory.push(this.endGame());
+  }
 
 }
