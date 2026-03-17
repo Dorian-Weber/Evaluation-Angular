@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {GameService} from '../../services/game-service';
 
 @Component({
   selector: 'app-history',
@@ -7,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './history.css',
 })
 export class History {
+  protected gameService: GameService = inject(GameService);
 
 }
