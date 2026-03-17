@@ -1,6 +1,4 @@
-import {Component, OnInit, signal, inject} from '@angular/core';
-import {Words} from '../../services/words';
-import {Letters} from '../../services/letters';
+import {Component, inject} from '@angular/core';
 import {GameService} from '../../services/game-service';
 
 

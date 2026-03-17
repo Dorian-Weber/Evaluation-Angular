@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {Error} from '../../services/error';
+
 import {GameService} from '../../services/game-service';
 
 @Component({
@@ -10,5 +10,5 @@ import {GameService} from '../../services/game-service';
 })
 export class Hangman {
   private gameService = inject(GameService);
-  protected errors$ = this.gameService.counter$;
+  protected errors = this.gameService.counter;
 }

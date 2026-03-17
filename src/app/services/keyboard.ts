@@ -8,9 +8,9 @@ import {map, filter } from 'rxjs/operators';
 export class Keyboard {
   //keydown permet d'écouter tous les évènements clavier.
   private keydown$: Observable<KeyboardEvent> = fromEvent<KeyboardEvent>(window, 'keydown');
-  private listening$ = new BehaviorSubject<boolean>(true);
+  private listening = new BehaviorSubject<boolean>(true);
 
-  letters$ = this.listening$.pipe(
+  letters$ = this.listening.pipe(
     switchMap(isListening =>
       isListening
         ? this.keydown$.pipe(
@@ -22,10 +22,10 @@ export class Keyboard {
   );
 
   startListening() {
-    this.listening$.next(true);
+    this.listening.next(true);
   }
 
   stopListening() {
-    this.listening$.next(false);
+    this.listening.next(false);
   }
 }

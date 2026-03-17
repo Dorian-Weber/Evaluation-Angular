@@ -1,8 +1,6 @@
 import {Component, effect, ElementRef, inject, ViewChild, viewChild} from '@angular/core';
 import {GameService} from '../../services/game-service';
-import {Error} from '../../services/error';
-import {Words} from '../../services/words';
-import {Letters} from '../../services/letters';
+
 
 @Component({
   selector: 'app-game-over',
@@ -20,7 +18,7 @@ export class GameOver {
   // constructeur qui va vérifier et écouter l'état de gameState pour ouvrir ou non la boite de dialog
   constructor() {
     effect(() => {
-      if (this.gameService.gameState$() === 'lose' || this.gameService.gameState$() === 'win') {
+      if (this.gameService.gameState() === 'lose' || this.gameService.gameState() === 'win') {
         this.dialog.nativeElement.showModal();
         this.modalState = true;
       } else if (this.modalState) {

@@ -1,4 +1,4 @@
-import {effect, Injectable, OnInit, signal} from '@angular/core';
+import {Injectable, signal} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {wordApiModel} from '../model/wordApiModel';
@@ -8,7 +8,7 @@ import {wordApiModel} from '../model/wordApiModel';
   providedIn: 'root',
 })
 export class Words {
-  randomWord$ = signal<string>("");
+  randomWord = signal<string>("");
 
   private apiUrl = "https://trouve-mot.fr/api/random"
   constructor(private http: HttpClient) {};
@@ -18,7 +18,7 @@ export class Words {
     this.getRandomWordApi().subscribe(word => {
       const formattedWord = this.normalizeWord(word[0].name).toUpperCase();
       console.log(formattedWord);
-      this.randomWord$.set(formattedWord);
+      this.randomWord.set(formattedWord);
     });
   }
 
@@ -34,22 +34,22 @@ export class Words {
   }
 
   resetRandomWord(): void {
-    this.randomWord$.set("");
+    this.randomWord.set("");
     this.defineRandomWord();
   }
 
 
   isIncluded(letter: string) : boolean {
-    if (this.randomWord$() === "") {
+    if (this.randomWord() === "") {
       return false;
     }
-    return this.randomWord$()!.includes(letter);
+    return this.randomWord()!.includes(letter);
   }
 
 
   testLetterAgainstWord(letterList: string[]): boolean {
-    if (this.randomWord$() === "") return false;
-    for (let letter of this.randomWord$()!.split("")) {
+    if (this.randomWord() === "") return false;
+    for (let letter of this.randomWord()!.split("")) {
       if (!letterList.includes(letter)) {
         return false
       }
