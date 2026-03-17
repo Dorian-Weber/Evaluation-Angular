@@ -1,23 +1,50 @@
+<div class="grid grid-cols-2 gap-4">
+  <div class="p-4 bg-base-200 rounded-lg">
+    <table class="table table-zebra bg-base-100 rounded-lg shadow-sm">
+      <thead class="bg-base-200 text-base-content/70">
+        <tr>
+          <th class="font-semibold">Resultat</th>
+          <th class="font-semibold">Mot à trouver</th>
+          <th class="font-semibold">Lettres trouvées</th>
+          <th class="font-semibold">Erreurs</th>
+          <th class="font-semibold">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (game of gameService.getHistory(); track game.date) {
+          <tr class="hover:bg-base-200/40 transition-colors">
+            <td class="badge badge-lg" [ngClass]="{
+            'badge-success': game.state ==='Gagné',
+            'badge-error' : game.state ==='Perdu'}" ]>{{ game.state }}</td>
+            <td>{{ game.wordToFind }}</td>
+            <td>{{ game.lettersFound }}</td>
+            <td>{{ game.errors }}</td>
+            <td>{{ game.date }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <div class="sidebar">
+      <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Vos Record</h2>
+          <div class="text-center">
+            <p class="py-4">Votre Record : </p>
+            <p class="py-4">Score Actuel : </p>
+          </div>
+        </div>
+      </div>
+    </div>
+      <div class="card bg-base-200 shadow-xl">
+        <div class="card-body">
+          <h2 class="card-title">Actions</h2>
+          <button class="btn btn-primary btn-block" routerLink="/" (click)="gameService.resetGame()">Nouvelle Partie</button>
+          <button class="btn btn-outline btn-block" (click)="gameService.clearHistory()">Effacer l'historique</button>
+          <button class="btn btn-outline btn-block" routerLink="/">Retour au jeu</button>
+        </div>
+      </div>
+  </div>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Resultat</th>
-      <th>Mot à trouver</th>
-      <th>Lettres jouées</th>
-      <th>Erreurs</th>
-      <th>Date</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (game of gameService.getHistory(); track game.date) {
-      <tr>
-        <td>{{ game.state }}</td>
-        <td>{{ game.wordToFind }}</td>
-        <td>{{ game.lettersFound }}</td>
-        <td>{{ game.errors }}</td>
-        <td>{{ game.date }}</td>
-      </tr>
-    }
-  </tbody>
-</table>

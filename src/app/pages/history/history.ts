@@ -1,9 +1,14 @@
 import {Component, inject} from '@angular/core';
 import {GameService} from '../../services/game-service';
+import {RouterLink} from "@angular/router";
+import {NgClass} from '@angular/common';
 
 @Component({
   selector: 'app-history',
-  imports: [],
+  imports: [
+    RouterLink,
+    NgClass
+  ],
   templateUrl: './history.html',
   styleUrl: './history.css',
 })
