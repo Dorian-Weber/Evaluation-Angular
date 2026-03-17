@@ -35,8 +35,8 @@ export class GameService {
 
     effect(() => {
       this.lastLetter.set(this._lastLetter());
-
     });
+
     effect(() => {
       const letter = this.lastLetter()?.toUpperCase();
       if (!letter) return;
@@ -62,15 +62,6 @@ export class GameService {
         this.setRecord();
         return;
       }
-    })
-    effect(() => {
-      console.log(this.gameState())
-    })
-
-    effect(() => {
-
-
-
     })
   }
 
