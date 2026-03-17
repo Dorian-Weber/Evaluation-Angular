@@ -5,6 +5,7 @@ import {Keyboard} from './keyboard';
 import {toSignal} from '@angular/core/rxjs-interop';
 import {GameState} from '../model/gameState';
 import {GameHistory} from '../model/gameHistory';
+import {LocalStorage} from './local-storage';
 
 // Controle la logique du jeu
 @Injectable({
@@ -13,6 +14,7 @@ import {GameHistory} from '../model/gameHistory';
 export class GameService {
   private words = inject(Words);
   private keyboard = inject(Keyboard);
+  private localStorage = inject(LocalStorage);
 
   private gameHistoryList: GameHistory[] = [];
 
@@ -139,11 +141,11 @@ export class GameService {
   }
 
   addGameToHistory(): void {
-    this.gameHistoryList.push(this.endGame());
+    this.localStorage.addItem("history", this.endGame());
   }
 
   getHistory(): GameHistory[] {
-    return this.gameHistoryList;
+    return <GameHistory[]> this.localStorage.getList("history");
   }
 
 }
