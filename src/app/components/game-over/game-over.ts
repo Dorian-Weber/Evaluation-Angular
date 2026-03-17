@@ -33,6 +33,10 @@ export class GameOver {
     this.modalState = false;
   }
 
+  getCurrentWordJoin(): string {
+    return this.gameService.getCurrentWord().join("")
+  }
+
 
 
 }

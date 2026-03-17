@@ -4,7 +4,7 @@
     @if(gameService.gameState()==='win'){
       <p class="py-4" id="game-result">Vous avez gagnée Félicitation ! </p>
     } @else if (gameService.gameState()==='lose'){
-      <p class="py-4" id="game-result">Vous avez perdu... retentez votre chance !</p>
+      <p class="py-4" id="game-result">Vous avez perdu... Le mot était "{{ getCurrentWordJoin() }}" retentez votre chance !</p>
     }
     <div class="modal-action">
       <button class="btn btn-primary" (click)="gameService.resetGame()">Rejouer</button>
