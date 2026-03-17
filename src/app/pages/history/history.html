@@ -19,7 +19,7 @@
             <td>{{ game.wordToFind }}</td>
             <td>{{ game.lettersFound }}</td>
             <td>{{ game.errors }}</td>
-            <td>{{ game.date }}</td>
+            <td>{{ game.date | date : "short" }}</td>
           </tr>
         }
       </tbody>
