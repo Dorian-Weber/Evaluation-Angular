@@ -16,7 +16,8 @@ export class GameService {
   private keyboard = inject(Keyboard);
   private localStorage = inject(LocalStorage);
 
-  private gameHistoryList: GameHistory[] = [];
+  private record: number = this.localStorage.getNumber("record");
+  private currentStreak: number = this.localStorage.getNumber("streak");
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -28,6 +29,7 @@ export class GameService {
   private correctLetters: string[] = [];
 
   readonly getLettersList = this.lettersList;
+  readonly getCurrentRecord = signal<number>(this.record);
 
   constructor() {
 
@@ -51,16 +53,24 @@ export class GameService {
       if (this.counter() >= 5) {
         this.setLose()
         this.addGameToHistory();
+        this.setRecord();
         return;
       }
       if (this.testLetterAgainstWord()) {
         this.setWin()
         this.addGameToHistory();
+        this.setRecord();
         return;
       }
     })
     effect(() => {
       console.log(this.gameState())
+    })
+
+    effect(() => {
+
+
+
     })
   }
 
@@ -153,4 +163,11 @@ export class GameService {
     this.localStorage.clear("history");
   }
 
+  setRecord() {
+    if (this.gameState() == "win") {
+      this.currentStreak += 1;
+    } else this.currentStreak = 0;
+
+    if (this.currentStreak > this.record) this.record = this.currentStreak;
+  }
 }

@@ -6,6 +6,19 @@ import {GameHistory} from '../model/gameHistory';
 })
 export class LocalStorage {
 
+  setNumber(key: string, value: number) {
+    localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  getNumber(key: string): number {
+    let number = localStorage.getItem(key);
+    if(!number) {
+      number = "0";
+    }
+
+    return parseInt(number);
+  }
+
   setList(key: string, list: GameHistory[]) {
     localStorage.setItem(key, JSON.stringify(list));
   }

@@ -12,4 +12,5 @@ export class Score {
   private gameService = inject(GameService);
 
   protected counter = this.gameService.counter;
+  protected record = this.gameService.getCurrentRecord;
 }
