@@ -12,10 +12,12 @@ import {LocalStorage} from './local-storage';
   providedIn: 'root',
 })
 export class GameService {
+  // Injection de dependance
   private words = inject(Words);
   private keyboard = inject(Keyboard);
   private localStorage = inject(LocalStorage);
 
+  // Creation des signaux
   private record = signal<number>(0);
   private currentStreak = signal<number>(0);
 
@@ -26,22 +28,22 @@ export class GameService {
   gameState = signal<GameState>("playing");
   counter = signal<number>(0);
 
-  private correctLetters: string[] = [];
-
+  // getters de signaux
   readonly getLettersList = this.lettersList;
   getRecord = this.record.asReadonly();
   getCurrentStreak = this.currentStreak.asReadonly();
+
+  // Liste de lettres trouvées
+  private correctLetters: string[] = [];
+
 
   constructor() {
     effect(() => {
       this.record.set(this.localStorage.getNumber("record"))
       this.currentStreak.set(this.localStorage.getNumber("streak"))
     })
-
-
     effect(() => {
       this.lastLetter.set(this._lastLetter());
-
     });
     effect(() => {
       const letter = this.lastLetter()?.toUpperCase();
@@ -54,7 +56,6 @@ export class GameService {
         this.lettersList.update(list => [...list, letter]);
       }
     });
-
     effect(() => {
       if (this.gameState() !== "playing") return;
       if (this.counter() >= 5) {
@@ -70,35 +71,6 @@ export class GameService {
         return;
       }
     })
-
-  }
-
-  setWin() {
-    this.gameState.set('win')
-    this.keyboard.stopListening()
-    console.log(this.gameState())
-  }
-
-  setLose() {
-    this.gameState.set('lose')
-    this.keyboard.stopListening()
-    console.log(this.gameState())
-  }
-
-  setPlaying() {
-    this.gameState.set('playing')
-    this.keyboard.startListening()
-    console.log(this.gameState())
-  }
-
-  resetGame() {
-    this.setPlaying();
-    this.counter.update(count =>count = 0);
-    this.lettersList.set([])
-    this.lastLetter.set(null)
-    this.correctLetters = [];
-    this.words.resetRandomWord();
-    console.log("reset word")
   }
 
   defineWord() {
@@ -110,15 +82,12 @@ export class GameService {
   }
 
   // Verifie si une lettre est correcte (dans le mot à trouver)
-  // !!! trop d'appels qui se cumulent exponientellement !!!
   isIncluded(letter: string) : boolean {
     if (this.words.randomWord() === "") {
       return false;
     }
-    console.log(letter + " : " + this.words.randomWord()!.includes(letter));
     return this.words.randomWord()!.includes(letter);
   }
-
 
   // Verifie si toutes les lettres d'un mot ont été trouvés
   testLetterAgainstWord(): boolean {
@@ -136,6 +105,32 @@ export class GameService {
     return this.lettersList().includes(letter);
   }
 
+  // Etat du jeu
+  setPlaying() {
+    this.gameState.set('playing')
+    this.keyboard.startListening()
+  }
+
+  setWin() {
+    this.gameState.set('win')
+    this.keyboard.stopListening()
+  }
+
+  setLose() {
+    this.gameState.set('lose')
+    this.keyboard.stopListening()
+  }
+
+  resetGame() {
+    this.setPlaying();
+    this.counter.update(count =>count = 0);
+    this.lettersList.set([])
+    this.lastLetter.set(null)
+    this.correctLetters = [];
+    this.words.resetRandomWord();
+  }
+
+  // gestion du storage
   private endGame(): GameHistory {
     let state: string = "" ;
     if (this.gameState() == "lose") state = "Perdu";
@@ -176,7 +171,5 @@ export class GameService {
 
     this.localStorage.setNumber("record", this.record());
     this.localStorage.setNumber("streak", this.currentStreak());
-
-    //this.gameState.set("playing")
   }
 }

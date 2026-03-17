@@ -38,26 +38,4 @@ export class Words {
     this.defineRandomWord();
   }
 
-
-  isIncluded(letter: string) : boolean {
-    if (this.randomWord() === "") {
-      return false;
-    }
-    return this.randomWord()!.includes(letter);
-  }
-
-
-  testLetterAgainstWord(letterList: string[]): boolean {
-    if (this.randomWord() === "") return false;
-    for (let letter of this.randomWord()!.split("")) {
-      if (!letterList.includes(letter)) {
-        return false
-      }
-    }
-    return true;
-  }
-
-
-
-
 }

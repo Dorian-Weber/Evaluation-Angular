@@ -6,6 +6,7 @@ import {GameHistory} from '../model/gameHistory';
 })
 export class LocalStorage {
 
+  // Methode pour stocker et recuperer des nombres
   setNumber(key: string, value: number) {
     localStorage.setItem(key, JSON.stringify(value));
   }
@@ -19,6 +20,7 @@ export class LocalStorage {
     return parseInt(number);
   }
 
+  // Methodes pour stocker et recuperer des liste de GameHistory
   setList(key: string, list: GameHistory[]) {
     localStorage.setItem(key, JSON.stringify(list));
   }
@@ -36,6 +38,7 @@ export class LocalStorage {
 
   }
 
+  // Clear des données stockées generique
   clear(key : string): void {
     localStorage.removeItem(key);
   }

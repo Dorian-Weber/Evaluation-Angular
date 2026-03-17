@@ -1,4 +1,4 @@
-import {Component, effect, ElementRef, inject, ViewChild, viewChild} from '@angular/core';
+import {Component, effect, ElementRef, inject, ViewChild} from '@angular/core';
 import {GameService} from '../../services/game-service';
 
 
@@ -25,11 +25,10 @@ export class GameOver {
         this.closeModal()
       }
     });
-
   }
+
   closeModal(): void {
     this.dialog.nativeElement.close();
-    //this.gameService.resetGame();
     this.modalState = false;
   }
 
