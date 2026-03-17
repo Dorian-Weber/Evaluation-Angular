@@ -1,4 +1,4 @@
-import {effect, inject, Injectable, signal} from '@angular/core';
+import {effect, inject, Injectable, signal, WritableSignal} from '@angular/core';
 
 import {Words} from './words';
 import {Keyboard} from './keyboard';
@@ -16,8 +16,8 @@ export class GameService {
   private keyboard = inject(Keyboard);
   private localStorage = inject(LocalStorage);
 
-  private record = signal<number>(this.localStorage.getNumber("record"));
-  private currentStreak = signal<number>(this.localStorage.getNumber("streak"));
+  //private record = signal<number>(this.localStorage.getNumber("record"));
+  //private currentStreak = signal<number>(this.localStorage.getNumber("streak"));
 
   private _lastLetter = toSignal(this.keyboard.letters$, { initialValue: null });
   lastLetter = signal<string | null>(null)
@@ -29,7 +29,8 @@ export class GameService {
   private correctLetters: string[] = [];
 
   readonly getLettersList = this.lettersList;
-  readonly getCurrentRecord = this.record;
+  readonly getRecord = signal<number>(this.localStorage.getNumber("record"));
+  //readonly getCurrentStreak = this.localStorage.getNumber("streak");
 
   constructor() {
 
@@ -65,12 +66,9 @@ export class GameService {
     })
     effect(() => {
       console.log(this.gameState())
-    })
 
-    effect(() => {
-
-
-
+      //this.record.set(this.localStorage.getNumber("record"));
+      //this.currentStreak.set(this.localStorage.getNumber("streak"));
     })
   }
 
@@ -161,13 +159,17 @@ export class GameService {
 
   clearHistory(): void {
     this.localStorage.clear("history");
+    this.localStorage.clear("record");
+    this.localStorage.clear("streak");
   }
 
   setRecord() {
     if (this.gameState() == "win") {
-      this.localStorage.setNumber("record", this.record() + 1);
-    } else this.localStorage.setNumber("streak", 0);
+      this.localStorage.setNumber("record", this.localStorage.getNumber("record") + 1);
+    } else {
+      this.localStorage.setNumber("streak", 0);
+    }
 
-    if (this.currentStreak > this.record) this.localStorage.setNumber("record", this.localStorage.getNumber("streak"));
+    if (this.localStorage.getNumber("streak") > this.localStorage.getNumber("record")) this.localStorage.setNumber("record", this.localStorage.getNumber("streak"));
   }
 }

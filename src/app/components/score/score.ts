@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 
 import {GameService} from '../../services/game-service';
 
@@ -12,5 +12,5 @@ export class Score {
   private gameService = inject(GameService);
 
   protected counter = this.gameService.counter;
-  protected record = this.gameService.getCurrentRecord;
+  protected record = this.gameService.getRecord();
 }
