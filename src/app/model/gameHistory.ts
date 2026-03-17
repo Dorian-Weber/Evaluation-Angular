@@ -1,7 +1,7 @@
-export interface GameStatModel {
+export interface GameHistory {
   date: Date,
   wordToFind: string,
   lettersFound: string[],
   errors: number,
-  isWon: boolean
+  state: string
 }
